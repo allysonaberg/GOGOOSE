@@ -1,0 +1,9 @@
+{
+  "name": "GOGOOSE",
+  "manifest_version": 2,
+  "version": "0.0.1",
+    "permissions": [
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"  }
+}
