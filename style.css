@@ -1,0 +1,109 @@
+body{
+    width:600px;
+    height:600px;
+}
+
+.card{
+    width: 70px;
+    height: 105px;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: #FFF;
+    background-color: black;
+    display: inline-block;
+    background-image: url("images/back.jpg");
+    background-size: cover;
+    border-style: solid;
+    border-width: 1px;
+}
+
+
+#deckcards {
+    display: block;
+}
+
+span{ display: block;
+}
+
+#opponent, #player {
+    display: flex;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+button {
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 3%;
+}
+#gofish {
+    visibility: hidden;
+    /*display: inline-block;*/
+
+}
+#hiddenCards {
+    display: none;
+}
+
+#ca { background-image:url("images/ac.gif"); }
+#ck { background-image:url("images/kc.gif"); }
+#cq { background-image:url("images/qc.gif"); }
+#cj{ background-image:url("images/jc.gif"); }
+#c10 { background-image:url("images/10c.jpg"); }
+#c9{ background-image:url("images/9c.gif"); }
+#c8 { background-image:url("images/8c.gif"); }
+#c7 { background-image:url("images/7c.gif"); }
+#c6 { background-image:url("images/6c.gif"); }
+#c5 { background-image:url("images/5c.gif"); }
+#c4 { background-image:url("images/4c.gif"); }
+#c3 { background-image:url("images/3c.gif"); }
+#c2 { background-image:url("images/2c.gif"); }
+#sa { background-image:url("images/as.gif"); }
+#sk { background-image:url("images/ks.gif"); }
+#sq { background-image:url("images/qs.gif"); }
+#sj { background-image:url("images/js.gif"); }
+#s10{ background-image:url("images/10s.png"); }
+#s9{ background-image:url("images/9s.gif"); }
+#s8 { background-image:url("images/8s.gif"); }
+#s7 { background-image:url("images/7s.gif"); }
+#s6 { background-image:url("images/6s.gif"); }
+#s5 { background-image:url("images/5s.gif"); }
+#s4 { background-image:url("images/4s.gif"); }
+#s3 { background-image:url("images/3s.gif"); }
+#s2 { background-image:url("images/2s.gif"); }
+#ha { background-image:url("images/ah.gif"); }
+#hk { background-image:url("images/kh.gif"); }
+#hq { background-image:url("images/qh.gif"); }
+#hj { background-image:url("images/jh.gif"); }
+#h10 { background-image:url("images/10h.png"); }
+#h9 { background-image:url("images/9h.gif"); }
+#h8 { background-image:url("images/8h.gif"); }
+#h7 { background-image:url("images/7h.gif"); }
+#h6 { background-image:url("images/6h.gif"); }
+#h5 { background-image:url("images/5h.gif"); }
+#h4 { background-image:url("images/4h.gif"); }
+#h3 { background-image:url("images/3h.gif"); }
+#h2 { background-image:url("images/2h.gif"); }
+#da { background-image:url("images/ad.gif"); }
+#dk { background-image:url("images/kd.gif"); }
+#dq { background-image:url("images/qd.gif"); }
+#dj { background-image:url("images/jd.gif"); }
+#d10 { background-image:url("images/10d.png"); }
+#d9 { background-image:url("images/9d.gif"); }
+#d8 { background-image:url("images/8d.gif"); }
+#d7 { background-image:url("images/7d.gif"); }
+#d6 { background-image:url("images/6d.gif"); }
+#d5 { background-image:url("images/5d.gif"); }
+#d4 { background-image:url("images/4d.gif"); }
+#d3 { background-image:url("images/3d.gif"); }
+#d2 { background-image:url("images/2d.gif"); }
