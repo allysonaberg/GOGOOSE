@@ -1,0 +1,394 @@
+var deck = ["ca", "ck", "cq", "cj", "c10", "c9", "c8", "c7", "c6", "c5", "c4", "c3", "c2",
+    "sa", "sk", "sq", "sj", "s10", "s9", "s8", "s7", "s6", "s5", "s4", "s3", "s2", "ha", "hk", "hq", "hj", "h10", "h9", "h8", "h7", "h6", "h5", "h4", "h3", "h2", "da", "dk", "dq", "dj", "d10", "d9", "d8", "d7", "d6", "d5", "d4", "d3", "d2"
+];
+
+var hand = [];
+var cpu = [];
+
+var turn;
+var scoreplayer = 0;
+var scoreopponent = 0;
+
+shuffle(deck);
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+//Drawing the initial cards
+//our cards
+for (var i = 0; i < 5; i++) {
+    drawCard(deck, hand);
+}
+
+//opponent cards
+for (var i = 0; i < 5; i++) {var deck = ["ca", "ck", "cq", "cj", "c10", "c9", "c8", "c7", "c6", "c5", "c4", "c3", "c2",
+    "sa", "sk", "sq", "sj", "s10", "s9", "s8", "s7", "s6", "s5", "s4", "s3", "s2", "ha", "hk", "hq", "hj", "h10", "h9", "h8", "h7", "h6", "h5", "h4", "h3", "h2", "da", "dk", "dq", "dj", "d10", "d9", "d8", "d7", "d6", "d5", "d4", "d3", "d2"
+];
+
+var hand = [];
+var cpu = [];
+
+var turn;
+var scoreplayer = 0;
+var scoreopponent = 0;
+
+shuffle(deck);
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+//Drawing the initial cards
+//our cards
+for (var i = 0; i < 5; i++) {
+    drawCard(deck, hand);
+}
+
+//opponent cards
+for (var i = 0; i < 5; i++) {
+    drawCard(deck, cpu);
+}
+
+//function for setting up the UI
+function setup(hand, cpu) {
+    console.log("in setup");
+
+    //computer deck
+    var html1 = '';
+    for (i = 0; i < cpu.length; i++) {
+        html1 += '<div class = "card"></div>';
+    }
+    html1 += '</div>';
+    document.getElementById('opponent').innerHTML = html1;
+
+    //player deck
+    var html2 = '';
+    for (i = 0; i < hand.length; i++) {
+        html2 += '<div class = "card" id ="' + hand[i] + '"></div>';
+    }
+    html2 += '</div>';
+    document.getElementById('player').innerHTML = html2;
+}
+
+function drawCard(x, y) {
+    y.push(deck[0]);
+    x.shift();
+}
+setup(hand, cpu);
+
+console.log(deck);
+console.log(hand);
+console.log(cpu);
+
+
+
+document.getElementById("submit").onclick = function() {
+        function check(x, request) {
+            for (var i = 0; i < x.length; i++) {
+                if (x[i] == "c" + request || x[i] == "s" + request || x[i] == "h" + request || x[i] == "d" + request) {
+                    return true;
+                }
+            }
+        }
+        var request = document.getElementById("request").value; //instead of the hardcoded "ac", it will be an input from the user in the form: document.getElementById('request').value;
+        var checkRequest = check(hand, request);
+        console.log("submit clicked");
+
+
+        if (checkRequest === true) {
+            console.log("checkrequest true");
+            var checkOpponent = check(cpu, request);
+            if (checkOpponent === true) {
+                console.log("checkopponent true");
+                var a = cpu.indexOf("c" + request);
+                var b = cpu.indexOf("s" + request);
+                var c = cpu.indexOf("h" + request);
+                var d = cpu.indexOf("d" + request);
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                console.log(d);
+                if (a != -1) hand.push(cpu[a]);
+                if (b != -1) hand.push(cpu[b]);
+                if (c != -1) hand.push(cpu[c]);
+                if (d != -1) hand.push(cpu[d]);
+
+                if (a != -1) cpu.splice(a, 1);
+                if (b != -1) cpu.splice(b, 1);
+                if (c != -1) cpu.splice(c, 1);
+                if (d != -1) cpu.splice(d, 1);
+
+                console.log(hand);
+                console.log(cpu);
+                setup(hand, cpu);
+                turn++;
+
+                /*********/
+                for (i = 2; i < 11; i++) {
+                    if (countInArray(hand, i) > 3) {
+                        //increase score
+                        //delete that set of cards from the deck
+                        scoreplayer++;
+                        console.log("group");
+                        //remove all items at indexes containing 'i'
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes(i)) {
+                                html2and.splice(array[j], 1);
+                            }
+                        }
+                    }
+                }
+
+                if (countInArray(hand, "j") > 3 || countInArray(hand, "q") > 3 || countInArray(hand, "k") > 3 || countInArray(hand, "a") > 3) {
+                    //increase score
+                    //delete that set of cards
+                    console.log("group");
+                    scoreplayer++;
+                    //remove all items at indexes containing 'j, q, k, a'
+                    for (j = 0; j < hand.length; j++) {
+                        if (hand[j].includes("j")) {
+                            html2and.splice(array[j], 1);
+                        }
+                    }
+
+                    for (j = 0; j < hand.length; j++) {
+                        if (hand[j].includes("q")) {
+                            html2and.splice(array[j], 1);
+                        }
+                    }
+
+                    for (j = 0; j < hand.length; j++) {
+                        if (hand[j].includes("a")) {
+                            html2and.splice(array[j], 1);
+                        }
+                    }
+
+                    for (j = 0; j < hand.length; j++) {
+                        if (hand[j].includes("k")) {
+                            html2and.splice(array[j], 1);
+                        }
+                    }
+
+                } 
+                else {
+                    /*document.getElementById('gofish').style.visibility = "visible";*/
+                    console.log("going fishing!");
+                    drawCard(deck, hand);
+                    setup(hand, cpu);
+                    turn++;
+                    /*********/
+                    for (i = 2; i < 11; i++) {
+                        if (countInArray(hand, i) > 3) {
+                            //increase score
+                            //delete that set of cards from the deck
+                            console.log("group");
+                            scoreplayer++;
+                            hand.splice
+                        }
+                    }
+
+                    if (countInArray(hand, "j") > 3 || countInArray(hand, "q") > 3 || countInArray(hand, "k") > 3 || countInArray(hand, "a") > 3) {
+                        //increase score
+                        //delete that set of cards
+                        console.log("group");
+                    }
+
+                } 
+            }
+            else {
+                console.log("Invalid request, try again")
+            }
+            
+            console.log("computer's turn!")
+
+            function chooseAskingCard(cpu) {
+                var value = Math.random() * (cpu.length);
+            }
+
+            function countInArray(array, what) {
+                var count = 0;
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].includes(what)) {
+                        count++;
+                    }
+                }
+                return count;
+            }
+    drawCard(deck, cpu);
+}
+
+//function for setting up the UI
+function setup(hand, cpu) {
+    console.log("in setup");
+
+    //computer deck
+    var html1 = '';
+    for (i = 0; i < cpu.length; i++) {
+        html1 += '<div class = "card"></div>';
+    }
+    html1 += '</div>';
+    document.getElementById('opponent').innerHTML = html1;
+
+    //player deck
+    var html2 = '';
+    for (i = 0; i < hand.length; i++) {
+        html2 += '<div class = "card" id ="' + hand[i] + '"></div>';
+    }
+    html2 += '</div>';
+    document.getElementById('player').innerHTML = html2;
+}
+
+function drawCard(x, y) {
+    y.push(deck[0]);
+    x.shift();
+}
+setup(hand, cpu);
+
+console.log(deck);
+console.log(hand);
+console.log(cpu);
+
+
+
+document.getElementById("submit").onclick = function() {
+        function check(x, request) {
+            for (var i = 0; i < x.length; i++) {
+                if (x[i] == "c" + request || x[i] == "s" + request || x[i] == "h" + request || x[i] == "d" + request) {
+                    return true;
+                }
+            }
+        }
+        var request = document.getElementById("request").value; //instead of the hardcoded "ac", it will be an input from the user in the form: document.getElementById('request').value;
+        var checkRequest = check(hand, request);
+        console.log("submit clicked");
+
+
+        if (checkRequest === true) {
+            console.log("checkrequest true");
+            var checkOpponent = check(cpu, request);
+            if (checkOpponent === true) {
+                console.log("checkopponent true");
+                var a = cpu.indexOf("c" + request);
+                var b = cpu.indexOf("s" + request);
+                var c = cpu.indexOf("h" + request);
+                var d = cpu.indexOf("d" + request);
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                console.log(d);
+                if (a != -1) hand.push(cpu[a]);
+                if (b != -1) hand.push(cpu[b]);
+                if (c != -1) hand.push(cpu[c]);
+                if (d != -1) hand.push(cpu[d]);
+
+                if (a != -1) cpu.splice(a, 1);
+                if (b != -1) cpu.splice(b, 1);
+                if (c != -1) cpu.splice(c, 1);
+                if (d != -1) cpu.splice(d, 1);
+
+                console.log(hand);
+                console.log(cpu);
+                setup(hand, cpu);
+                turn++;
+
+                /*********/
+                for (i = 2; i < 11; i++) {
+                    if (countInArray(hand, i) > 3) {
+                        //increase score
+                        //delete that set of cards from the deck
+                        scoreplayer++;
+                        console.log("group");
+                        //remove all items at indexes containing 'i'
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes(i)) {
+                                hand.splice(array[j], 1);
+                            }
+                        }
+                    }
+                }
+
+                if (countInArray(hand, "j") > 3 || countInArray(hand, "q") > 3 || countInArray(hand, "k") > 3 || countInArray(hand, "a") > 3) {
+                        //increase score
+                        //delete that set of cards
+                        console.log("group");
+                        scoreplayer++;
+                        //remove all items at indexes containing 'j, q, k, a'
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes("j")) {
+                                html2and.splice(array[j], 1);
+                            }
+                        }
+
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes("q")) {
+                                html2and.splice(array[j], 1);
+                            }
+                        }
+
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes("a")) {
+                                html2and.splice(array[j], 1);
+                            }
+                        }
+
+                        for (j = 0; j < hand.length; j++) {
+                            if (hand[j].includes("k")) {
+                                html2and.splice(array[j], 1);
+                            }
+                        }
+
+                    } else {
+                        /*document.getElementById('gofish').style.visibility = "visible";*/
+                        console.log("going fishing!");
+                        drawCard(deck, hand);
+                        setup(hand, cpu);
+                        turn++;
+                        /*********/
+                        for (i = 2; i < 11; i++) {
+                            if (countInArray(hand, i) > 3) {
+                                //increase score
+                                //delete that set of cards from the deck
+                                console.log("group");
+                                scoreplayer++;
+                                hand.splice
+                            }
+                        }
+
+                        if (countInArray(hand, "j") > 3 || countInArray(hand, "q") > 3 || countInArray(hand, "k") > 3 || countInArray(hand, "a") > 3) {
+                            //increase score
+                            //delete that set of cards
+                            console.log("group");
+                        }
+
+                    } 
+                }
+                    else {
+                        console.log("Invalid request, try again")
+                    }
+                
+                console.log("computer's turn!")
+
+                function chooseAskingCard(cpu) {
+                    var value = Math.random() * (cpu.length);
+                }
+
+                function countInArray(array, what) {
+                    var count = 0;
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i].includes(what)) {
+                            count++;
+                        }
+                    }
+                    return count;
+                }

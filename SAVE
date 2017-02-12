@@ -1,0 +1,212 @@
+var deck = ["ca", "ck", "cq", "cj", "c10", "c9", "c8", "c7", "c6", "c5", "c4", "c3", "c2",
+    "sa", "sk", "sq", "sj", "s10", "s9", "s8", "s7", "s6", "s5", "s4", "s3", "s2", "ha", "hk", "hq", "hj", "h10", "h9", "h8", "h7", "h6", "h5", "h4", "h3", "h2", "da", "dk", "dq", "dj", "d10", "d9", "d8", "d7", "d6", "d5", "d4", "d3", "d2"];
+
+var hand = [];
+var cpu = [];
+
+var turn;
+var endofTurn= false;
+
+
+
+shuffle (deck);
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+	//Drawing the initial cards
+//our cards
+for(var i =0; i <5; i++) {
+    drawCard(deck, hand);
+}
+
+//opponent cards
+for (var i =0; i <5; i ++) {
+    drawCard(deck,cpu);
+}
+
+//function for setting up the UI
+function setup(hand, cpu) {
+	console.log("in setup");
+
+	//computer deck
+	var html1 = '';
+	for (i = 0; i < cpu.length; i++) {
+		html1 += '<div class = "card"></div>';
+	}
+	html1 += '</div>';
+	document.getElementById('opponent').innerHTML = html1;
+
+	//player deck
+	var html2 = '';
+	for (i = 0; i < hand.length; i++) {
+		html2 += '<div class = "card" id ="'+ hand[i]+'"></div>';
+	}
+	html2 += '</div>';
+	document.getElementById('player').innerHTML = html2;
+}
+function drawCard (x, y) {
+    y.push(deck[0]);
+    x.shift();
+}
+setup(hand, cpu);
+
+console.log(deck);
+console.log(hand);
+console.log(cpu);
+
+document.getElementById("submit").onclick = function() {
+
+	function check (x, request) {
+    	for(var i=0; i<x.length; i++) {
+        	if (x[i] == "c" + request || x[i] == "s" + request || x[i] == "h" + request || x[i]=="d" +request) {
+            	return true;
+        	}
+    	}
+	}
+	var request = document.getElementById("request").value; //instead of the hardcoded "ac", it will be an input from the user in the form: document.getElementById('request').value;
+	var checkRequest = check(hand, request);
+	console.log("submit clicked");
+
+
+	if(checkRequest === true) {
+		console.log("checkrequest true");
+    	var checkOpponent = check(cpu, request);
+    	if (checkOpponent === true) {
+    			console.log("checkopponent true");
+        	var a = cpu.indexOf("c" + request);
+        	var b = cpu.indexOf("s" + request);
+        	var c = cpu.indexOf("h" + request);
+        	var d = cpu.indexOf("d" + request);
+        	console.log(a);
+        	console.log(b);
+        	console.log(c);
+        	console.log(d);
+        	if (a!= -1) hand.push(cpu[a]);
+        	if (b!= -1) hand.push(cpu[b]);
+        	if (c!= -1) hand.push(cpu[c]);
+        	if (d!= -1) hand.push(cpu[d]);
+
+        	if (a!= -1) cpu.splice(a,1);
+        	if (b!= -1) cpu.splice(b,1);
+        	if (c!= -1) cpu.splice(c,1);
+        	if (d!= -1) cpu.splice(d,1);
+
+        	console.log(hand);
+        	console.log(cpu);
+        	setup(hand, cpu);
+        	turn ++;
+
+        	//CHECK FOR FOUR OF A KIND
+        	console.log("check for four");
+        	checkArray(hand);
+    	}
+    	else {
+        	/*document.getElementById('gofish').style.visibility = "visible";*/
+        	console.log("going fishing!");
+        	drawCard(deck, hand);
+        	setup(hand, cpu);
+        	turn ++;
+        	//CHECK FOR FOUR OF A KIND
+        	checkArray(hand);
+        	console.log("check for four");
+		}
+	}
+	else {
+    	console.log("Invalid request, try again")
+	}
+}
+console.log("computer's turn!");
+
+function chooseAskingCard(cpu) {
+    var value = Math.random() * (cpu.length);
+}
+
+
+checkArray(hand);
+    
+    function countInArray(array, what) {
+    var count = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].includes(what)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+function moveToFront(old_index, array) {
+    if (0 >= array.length) {
+        var r = 0 - array.length;
+        while ((r--) + 1) {
+            array.push(undefined);
+        }
+    }
+    array.splice(0, 0, array.splice(old_index, 1)[0]);
+    return array; // for testing purposes
+}
+               
+function checkArray(array) {
+                        for (var i = 2; i < 11; i++) {
+                         
+                            if (countInArray(array, i) >= 4) {
+                              moveToFront(array.indexOf("c" +i), array);
+                              moveToFront(array.indexOf("s" +i), array);
+                              moveToFront(array.indexOf("d" +i), array);
+                              moveToFront(array.indexOf("h" +i), array);
+                                
+                              array.splice(0,4);
+                              
+                            }
+                        }
+
+                    if (countInArray(array, "j") >= 4) {
+
+                        moveToFront(array.indexOf("cj"), array);
+                        moveToFront(array.indexOf("sj"), array);
+                        moveToFront(array.indexOf("dj"), array);
+                        moveToFront(array.indexOf("hj"), array);
+                                
+                        array.splice(0,4);
+                    }
+
+                    if (countInArray(array, "q") >= 4) {
+
+                        moveToFront(array.indexOf("cq"), array);
+                        moveToFront(array.indexOf("sq"), array);
+                        moveToFront(array.indexOf("dq"), array);
+                        moveToFront(array.indexOf("hq"), array);
+                                
+                        array.splice(0,4);
+                    }
+
+                    if (countInArray(hand, "k") >= 4 ) {
+
+                       moveToFront(array.indexOf("ck"), array);
+                        moveToFront(array.indexOf("sk"), array);
+                        moveToFront(array.indexOf("dk"), array);
+                        moveToFront(array.indexOf("hk"), array);
+                                
+                        array.splice(0,4);
+                    }
+
+                    if (countInArray(array, "a") >= 4) {
+
+                        moveToFront(array.indexOf("ca"), array);
+                        moveToFront(array.indexOf("sa"), array);
+                        moveToFront(array.indexOf("da"), array);
+                        moveToFront(array.indexOf("ha"), array);
+                                
+                        array.splice(0,4);
+                    }
+                    
+                }
+                
+  console.log(hand);
